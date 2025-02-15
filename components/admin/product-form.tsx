@@ -31,7 +31,7 @@ const ProductForm = ({
   product,
   productId,
 }: {
-  type: 'Create' | 'Update';
+  type: 'ساخت' | 'ویرایش';
   product?: Product;
   productId?: string;
 }) => {
@@ -40,17 +40,17 @@ const ProductForm = ({
 
   const form = useForm<z.infer<typeof insertProductSchema>>({
     resolver:
-      type === 'Update'
+      type === 'ویرایش'
         ? zodResolver(updateProductSchema)
         : zodResolver(insertProductSchema),
     defaultValues:
-      product && type === 'Update' ? product : productDefaultValues,
+      product && type === 'ویرایش' ? product : productDefaultValues,
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof insertProductSchema>> = async (
     values
   ) => {
-    if (type === 'Create') {
+    if (type === 'ساخت') {
       const res = await createProduct(values);
 
       if (!res.success) {
@@ -66,7 +66,7 @@ const ProductForm = ({
       }
     }
 
-    if (type === 'Update') {
+    if (type === 'ویرایش') {
       if (!productId) {
         router.push('/admin/products');
         return;
@@ -100,7 +100,6 @@ const ProductForm = ({
         className='space-y-8'
       >
         <div className='flex flex-col md:flex-row gap-5'>
-          {/* Name */}
           <FormField
             control={form.control}
             name='name'
@@ -113,9 +112,9 @@ const ProductForm = ({
               >;
             }) => (
               <FormItem className='w-full'>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>نام</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter product name' {...field} />
+                  <Input placeholder='نام محصول را وارد کنید' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -134,10 +133,10 @@ const ProductForm = ({
               >;
             }) => (
               <FormItem className='w-full'>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>نام</FormLabel>
                 <FormControl>
                   <div className='relative'>
-                    <Input placeholder='Enter slug' {...field} />
+                    <Input {...field} />
                     <Button
                       type='button'
                       className='bg-gray-500 hover:bg-gray-600 text-white px-4 py-1 mt-2'
@@ -148,7 +147,7 @@ const ProductForm = ({
                         );
                       }}
                     >
-                      Generate
+                      ساخت
                     </Button>
                   </div>
                 </FormControl>
@@ -158,7 +157,6 @@ const ProductForm = ({
           />
         </div>
         <div className='flex flex-col md:flex-row gap-5'>
-          {/* Category */}
           <FormField
             control={form.control}
             name='category'
@@ -171,15 +169,14 @@ const ProductForm = ({
               >;
             }) => (
               <FormItem className='w-full'>
-                <FormLabel>Category</FormLabel>
+                <FormLabel>دسته بندی</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter category' {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          {/* Brand */}
           <FormField
             control={form.control}
             name='brand'
@@ -192,9 +189,9 @@ const ProductForm = ({
               >;
             }) => (
               <FormItem className='w-full'>
-                <FormLabel>Brand</FormLabel>
+                <FormLabel>مارک</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter brand' {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -202,7 +199,6 @@ const ProductForm = ({
           />
         </div>
         <div className='flex flex-col md:flex-row gap-5'>
-          {/* Price */}
           <FormField
             control={form.control}
             name='price'
@@ -215,15 +211,14 @@ const ProductForm = ({
               >;
             }) => (
               <FormItem className='w-full'>
-                <FormLabel>Price</FormLabel>
+                <FormLabel>قیمت</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter product price' {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          {/* Stock */}
           <FormField
             control={form.control}
             name='stock'
@@ -236,9 +231,9 @@ const ProductForm = ({
               >;
             }) => (
               <FormItem className='w-full'>
-                <FormLabel>Stock</FormLabel>
+                <FormLabel>موجودی</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter stock' {...field} />
+                  <Input placeholder='موجودی' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -246,13 +241,12 @@ const ProductForm = ({
           />
         </div>
         <div className='upload-field flex flex-col md:flex-row gap-5'>
-          {/* Images */}
           <FormField
             control={form.control}
             name='images'
             render={() => (
               <FormItem className='w-full'>
-                <FormLabel>Images</FormLabel>
+                <FormLabel>عکس ها</FormLabel>
                 <Card>
                   <CardContent className='space-y-2 mt-2 min-h-48'>
                     <div className='flex-start space-x-2'>
@@ -289,8 +283,7 @@ const ProductForm = ({
           />
         </div>
         <div className='upload-field'>
-          {/* isFeatured */}
-          Featured Product
+            محصول تخفیف خورده
           <Card>
             <CardContent className='space-y-2 mt-2'>
               <FormField
@@ -304,7 +297,7 @@ const ProductForm = ({
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>
-                    <FormLabel>Is Featured?</FormLabel>
+                    <FormLabel>تخفیف داره ؟</FormLabel>
                   </FormItem>
                 )}
               />
@@ -336,7 +329,6 @@ const ProductForm = ({
           </Card>
         </div>
         <div>
-          {/* Description */}
           <FormField
             control={form.control}
             name='description'
@@ -349,10 +341,10 @@ const ProductForm = ({
               >;
             }) => (
               <FormItem className='w-full'>
-                <FormLabel>Description</FormLabel>
+                <FormLabel>توضیحات</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder='Enter product description'
+                    placeholder='اسم محصول'
                     className='resize-none'
                     {...field}
                   />
@@ -369,7 +361,7 @@ const ProductForm = ({
             disabled={form.formState.isSubmitting}
             className='button col-span-2 w-full'
           >
-            {form.formState.isSubmitting ? 'Submitting' : `${type} Product`}
+            {form.formState.isSubmitting ? 'در حال ثبت' : `${type} محصول `}
           </Button>
         </div>
       </form>

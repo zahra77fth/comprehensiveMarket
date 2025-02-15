@@ -91,7 +91,7 @@ const OrderDetailsTable = ({
 
   return (
     <>
-      <h1 className='py-4 text-2xl'>Order {formatId(id)}</h1>
+      <h1 className='py-4 text-2xl'>{formatId(id)} شماره سفارش </h1>
       <div className='grid md:grid-cols-3 md:gap-5'>
         <div className='col-span-2 space-4-y overlow-x-auto'>
           <Card>

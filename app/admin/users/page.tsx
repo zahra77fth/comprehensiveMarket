@@ -32,7 +32,7 @@ const AdminUserPage = async (props: {
   return (
     <div className='space-y-2'>
       <div className='flex items-center gap-3'>
-        <h1 className='h2-bold'>Users</h1>
+        <h1 className='h2-bold'>کاربرها</h1>
         {searchText && (
           <div>
             فیلتر شده با <i>&quot;{searchText}&quot;</i>{' '}

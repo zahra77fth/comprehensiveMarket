@@ -53,7 +53,7 @@ const ReviewList = ({
         />
       ) : (
         <div>
-          Please
+          لطفا
           <Link
             className='text-blue-700 px-2'
             href={`/sign-in?callbackUrl=/product/${productSlug}`}
